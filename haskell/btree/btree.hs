@@ -1,4 +1,7 @@
 import Prelude hiding ((<=), (^))
+import Data.Char
+import Data.Functor
+import Control.Applicative
 
 -- Derive Eq and Show typeclasses so we can compare and print BTree instances.
 data BTree a = Empty | Branch a (BTree a) (BTree a) deriving (Eq, Show)
@@ -92,3 +95,20 @@ x ^ Empty = x
 Empty ^ x = x
 -- Continue to look for empty leaves.
 Branch root left right ^ x = Branch root (left ^ x) (right ^ x)
+
+-- Lab 3
+instance Functor BTree where
+    fmap _ Empty = Empty
+    fmap f (Branch x left right) = Branch (f x) (fmap f left) (fmap f right)
+
+instance Applicative BTree where
+    pure x = Branch x Empty Empty
+    Empty <*> _ = Empty
+    (Branch _ _ _) <*> Empty = Empty
+    (Branch f fleft fright) <*> (Branch y left right) = Branch (f y) (fleft <*> left) (fright <*> right)
+
+-- let a = Branch 1 (Branch 2 (Branch 3 Empty Empty) Empty) (Branch 4 Empty Empty)
+-- let b = Branch 1 (Branch 4 Empty Empty) (Branch 2 Empty (Branch 3 Empty Empty))
+-- let c = Branch 1 (Branch 2 (Branch 3 Empty Empty) (Branch 4 Empty Empty)) Empty
+-- (+) <$> a <*> b
+-- (,) <$> a <*> c
