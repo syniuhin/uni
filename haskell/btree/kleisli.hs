@@ -10,9 +10,16 @@ class Kleisli k where
 
 instance Kleisli Maybe where
   f >=> g = \a ->
-      let b = f a
-          c = case b of
-            Just b0 -> g b0
-            Nothing -> Nothing
-      in c
+    let b = f a
+        c = case b of
+          Just b0 -> g b0
+          Nothing -> Nothing
+    in c
   return x = Just x
+
+instance Kleisli [] where
+  f >=> g = \a ->
+    let b = f a
+        c = concat (map g b)
+    in c
+  return x = [x]
