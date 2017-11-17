@@ -1,0 +1,5 @@
+{
+  "editor.tabSize": 4,
+  "python.pythonPath": "${workspaceRoot}/.intsys2/bin/python",
+  "python.venvPath": "${workspaceRoot}/.intsys2"
+}
