@@ -23,3 +23,6 @@ instance Kleisli [] where
         c = concat (map g b)
     in c
   return x = [x]
+
+fmap' :: (Kleisli k) => (a -> b) -> k a -> k b
+fmap' f lhs = return . f . (flip return) $ lhs

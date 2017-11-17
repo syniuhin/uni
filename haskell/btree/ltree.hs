@@ -4,13 +4,11 @@ instance Functor LTree where
   fmap f (LBranch left right) = LBranch (fmap f left) (fmap f right)
   fmap f (Leaf x) = Leaf (f x)
 
-(<**>) = flip (<*>)
-
 instance Applicative LTree where
   pure = Leaf
   (Leaf f) <*> rhs = fmap f rhs
   (LBranch left right) <*> (Leaf y) = LBranch (left <*> (Leaf y)) (right <*> (Leaf y))
-  lhs <*> (LBranch left right) = LBranch (left <**> lhs) (right <**> lhs)
+  lhs <*> (LBranch left right) = LBranch (lhs <*> left) (lhs <*> right)
 
 -- let a = LBranch (LBranch (Leaf 1) (Leaf 2)) (Leaf 3)
 -- (+) <$> a <*> Leaf 0
