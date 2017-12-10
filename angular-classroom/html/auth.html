@@ -1,0 +1,13 @@
+<div ng-controller="AuthController as authc">
+  <h3>Login Page</h3>
+  <form ng-submit="authc.submit()">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="user.username" placeholder="username" required="" />
+        <input type="password" class="form-control" ng-model="user.password" placeholder="password" required="" />
+        <button type="submit" class="btn btn-success" ng-click="authc.update(user)">Login</button>
+        <span class="text-danger">{{ authc.error }}</span>
+      </div>
+    </div>
+  </form>
+</div>
