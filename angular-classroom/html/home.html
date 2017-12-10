@@ -31,8 +31,21 @@
         </form>
       </div>
     </div>
+    <hr/>
     <div class="row">
-      {{homec.saved}}
+      <h4>Schedule</h4>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th ng-repeat="e in homec.entryStructure()">{{ e }}</th>
+          </tr>
+        </thead>
+        <tr ng-repeat="e in homec.listEntries()">
+          <td>{{ e.year }}</td>
+          <td>{{ e.subject }}</td>
+          <td>{{ e.lesson }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

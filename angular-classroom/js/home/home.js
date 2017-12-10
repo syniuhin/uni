@@ -7,15 +7,15 @@ app.controller("HomeController", [
     var me = this;
 
     me.getYears = function() {
-        return StorageService.load("defaults").years.sort();
+      return StorageService.load("defaults").years.sort();
     };
 
     me.getSubjects = function() {
-        return StorageService.load("defaults").subjects.sort();
+      return StorageService.load("defaults").subjects.sort();
     };
 
     me.getLessons = function() {
-        return StorageService.load("defaults").lessons.sort();
+      return StorageService.load("defaults").lessons.sort();
     };
 
     me.logout = function() {
@@ -23,9 +23,25 @@ app.controller("HomeController", [
       $state.transitionTo("login");
     };
 
-    me.saved = [];
     me.createNewEntry = function(entry) {
-      me.saved.push(entry);
+      StorageService.createOrUpdate("entries", [entry], existing => {
+        existing.push(entry);
+        return existing;
+      });
+    };
+
+    me.listEntries = function() {
+      return StorageService.loadOr("entries", []);
+    };
+
+    me.entryStructure = function() {
+      var entries = StorageService.load("entries");
+      if (entries === undefined || entries.length === 0) {
+        return [];
+      }
+      return Object.keys(entries[0]).map((name) => {
+        return name[0].toUpperCase() + name.slice(1);
+      })
     };
   }
 ]);

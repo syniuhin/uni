@@ -9,18 +9,12 @@ app.factory("LoginService", [
         _is_authenticated =
           user.username === allowed_credentials.username &&
           user.password === allowed_credentials.password;
-        StorageService.save({
-          key: "is_authenticated",
-          value: _is_authenticated
-        });
+        StorageService.save("is_authenticated", _is_authenticated);
         return _is_authenticated;
       },
       logout: function() {
         _is_authenticated = false;
-        StorageService.save({
-          key: "is_authenticated",
-          value: _is_authenticated
-        });
+        StorageService.save("is_authenticated", false);
       },
       isAuthenticated: function() {
         if (StorageService.load("is_authenticated")) {

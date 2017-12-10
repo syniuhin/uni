@@ -16,13 +16,11 @@ app.run(function($rootScope, $location, $state, LoginService, StorageService) {
   } else {
     // Initialize defaults
     if (!StorageService.contains("defaults")) {
-      var obj = {key: "defaults"};
-      var value = {};
-      value.years = ["9A", "10B", "11A"];
-      value.subjects = ["Math", "History", "Physics"];
-      value.lessons = ["01/12, 4", "02/12, 1"];
-      obj.value = value;
-      StorageService.save(obj);
+      StorageService.save("defaults", {
+        years: ["9A", "10B", "11A"],
+        subjects: ["Math", "History", "Physics"],
+        lessons: ["01/12, 4", "02/12, 1"]
+      });
     }
   }
 });

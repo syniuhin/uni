@@ -2,23 +2,40 @@ app.factory("StorageService", [
   "$cookies",
   function($cookies) {
     return {
-      save: function(kv) {
-        if (kv.value !== null && typeof kv.value === "object") {
-          $cookies.putObject(kv.key, kv.value);
-          this._putInObjectMap(kv.key);
+      save: function(key, value) {
+        if (value !== null && typeof value === "object") {
+          $cookies.putObject(key, value);
+          this._putInObjectMap(key);
         } else {
-          $cookies.put(kv.key, kv.value);
+          $cookies.put(key, value);
         }
       },
+
+      createOrUpdate: function(key, value, value_fn) {
+        if (!this.contains(key)) {
+          this.save(key, value);
+        } else {
+          var value_new = value_fn(this.load(key));
+          this.save(key, value_new);
+        }
+      },
+
       load: function(key) {
         if (this._isInObjectMap(key)) {
           return $cookies.getObject(key);
         }
         return $cookies.get(key);
       },
+
+      loadOr: function(key, empty_value) {
+        var result = this.load(key);
+        return result === undefined ? empty_value : result;
+      },
+
       contains: function(key) {
         return this.load(key) !== undefined;
       },
+
       _putInObjectMap: function(key) {
         // Check if this is the first entry.
         if ($cookies.getObject("object_map") === undefined) {
@@ -30,6 +47,7 @@ app.factory("StorageService", [
           $cookies.putObject("object_map", object_map);
         }
       },
+
       _isInObjectMap: function(key) {
         return (
           $cookies.getObject("object_map") !== undefined &&
