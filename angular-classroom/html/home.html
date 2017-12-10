@@ -1,6 +1,38 @@
 <div ng-controller="HomeController as homec">
-  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <nav class="navbar navbar-toggleable-md navbar-dark bg-dark">
     <span class="navbar-brand">Dashboard</span>
     <button class="btn btn-outline-danger" ng-click="homec.logout()">Log out</button>
   </nav>
+
+  <div class="container">
+    <div class="row homeFormRow">
+      <div class="col-2.5 card">
+        <form class="newJournalEntryForm">
+          <h4>New journal entry</h4>
+          <div class="form-group">
+            <label>Year</label>
+            <select class="form-control" ng-model="entry.year">
+              <option ng-repeat="year in homec.getYears()">{{year}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select class="form-control" ng-model="entry.subject">
+              <option ng-repeat="subject in homec.getSubjects()">{{subject}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Lesson</label>
+            <select class="form-control" ng-model="entry.lesson">
+              <option ng-repeat="lesson in homec.getLessons()">{{lesson}}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success float-right" ng-click="homec.createNewEntry(entry)">Create</button>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      {{homec.saved}}
+    </div>
+  </div>
 </div>
