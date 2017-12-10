@@ -58,7 +58,7 @@
           <th ng-repeat="e in homec.entryStructure()">{{ e }}</th>
         </tr>
       </thead>
-      <tr ng-repeat="e in homec.listEntries()" ng-click="homec.goToJournal(e)">
+      <tr ng-repeat="e in homec.listEntries()" ng-click="homec.goToJournal(e)" class="scheduleTableRow">
         <td>{{ e.year }}</td>
         <td>{{ e.subject }}</td>
         <td>{{ e.lesson }}</td>

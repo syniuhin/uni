@@ -60,4 +60,8 @@ function JournalComponent(StorageService, DataService, data) {
     journal[`mark.${pupil}.${lesson}`] = mark;
     me.markFormState = {};
   };
+
+  me.getDescription = function() {
+    return `Journal for ${me.data.year}: ${me.data.subject}`;
+  };
 }

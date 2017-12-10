@@ -14,6 +14,27 @@
   margin-top: 10px;
 }
 
-.tableCell {
+.tableCellContent {
   display: inline-flex;
+}
+
+.tableCell {
+  cursor: pointer;
+}
+
+.tableCell:hover {
+  background: #c6d6e6;
+}
+
+.scheduleTableRow {
+  cursor: pointer;
+}
+
+.scheduleTableRow:hover {
+  background: #c6d6e6;
+}
+
+.journalHeading {
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
