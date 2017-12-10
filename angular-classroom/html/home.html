@@ -1,70 +1,68 @@
-<div ng-controller="HomeController as homec">
-  <div class="container">
-    <div class="row homeFormRow">
-      <!-- New Journal Entry -->
-      <div class="col-md-3 card">
-        <form class="newJournalEntryForm">
-          <h4>Add journal point</h4>
-          <div class="form-group">
-            <label>Year</label>
-            <select class="form-control" ng-model="entry.year">
-              <option ng-repeat="year in homec.getYears()">{{year}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Subject</label>
-            <select class="form-control" ng-model="entry.subject">
-              <option ng-repeat="subject in homec.getSubjects()">{{subject}}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Lesson</label>
-            <select class="form-control" ng-model="entry.lesson">
-              <option ng-repeat="lesson in homec.getLessons()">{{lesson}}</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-success float-right" ng-click="homec.createNewEntry(entry)">Create</button>
-        </form>
-      </div>
-      <!-- New data points -->
-      <div class="col-3 offset-1 card">
-        <h4 style="padding:10px 0px 0px 10px;">Add data point</h4>
-        <form class="newDataPoint">
-          <div class="input-group">
-            <input type="text" class="form-control" ng-model="data_point_year.year" placeholder="Year" required="">
-            <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_year)" ng-disabled="!homec.validDataPoint(data_point_year)">+</button>
-          </div>
-        </form>
-        <form class="newDataPoint">
-          <div class="input-group">
-            <input type="text" class="form-control" ng-model="data_point_subject.subject" placeholder="Subject" required="">
-            <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_subject)"
-              ng-disabled="!homec.validDataPoint(data_point_subject)">+</button>
-          </div>
-        </form>
-        <form class="newDataPoint">
-          <div class="input-group">
-            <input type="text" class="form-control" ng-model="data_point_lesson.lesson" placeholder="Lesson" required="">
-            <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_lesson)" ng-disabled="!homec.validDataPoint(data_point_lesson)">+</button>
-          </div>
-        </form>
-      </div>
+<div class="container" ng-controller="HomeController as homec">
+  <div class="row homeFormRow">
+    <!-- New Journal Entry -->
+    <div class="col-md-3 card">
+      <form class="newJournalEntryForm">
+        <h4>Add journal point</h4>
+        <div class="form-group">
+          <label>Year</label>
+          <select class="form-control" ng-model="entry.year">
+            <option ng-repeat="year in homec.getYears()">{{year}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select class="form-control" ng-model="entry.subject">
+            <option ng-repeat="subject in homec.getSubjects()">{{subject}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Lesson</label>
+          <select class="form-control" ng-model="entry.lesson">
+            <option ng-repeat="lesson in homec.getLessons()">{{lesson}}</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success float-right" ng-click="homec.createNewEntry(entry)">Create</button>
+      </form>
     </div>
-    <hr/>
-    <div class="row">
-      <h4>Schedule</h4>
-      <table class="table">
-        <thead class="thead-light">
-          <tr>
-            <th ng-repeat="e in homec.entryStructure()">{{ e }}</th>
-          </tr>
-        </thead>
-        <tr ng-repeat="e in homec.listEntries()">
-          <td>{{ e.year }}</td>
-          <td>{{ e.subject }}</td>
-          <td>{{ e.lesson }}</td>
+    <!-- New data points -->
+    <div class="col-3 offset-1 card">
+      <h4 style="padding:10px 0px 0px 10px;">Add data point</h4>
+      <form class="newDataPoint">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="data_point_year.year" placeholder="Year" required="">
+          <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_year)" ng-disabled="!homec.validDataPoint(data_point_year)">+</button>
+        </div>
+      </form>
+      <form class="newDataPoint">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="data_point_subject.subject" placeholder="Subject" required="">
+          <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_subject)"
+            ng-disabled="!homec.validDataPoint(data_point_subject)">+</button>
+        </div>
+      </form>
+      <form class="newDataPoint">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="data_point_lesson.lesson" placeholder="Lesson" required="">
+          <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_lesson)" ng-disabled="!homec.validDataPoint(data_point_lesson)">+</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <h4>Schedule</h4>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th ng-repeat="e in homec.entryStructure()">{{ e }}</th>
         </tr>
-      </table>
-    </div>
+      </thead>
+      <tr ng-repeat="e in homec.listEntries()" ng-click="homec.goToJournal(e)">
+        <td>{{ e.year }}</td>
+        <td>{{ e.subject }}</td>
+        <td>{{ e.lesson }}</td>
+      </tr>
+    </table>
   </div>
 </div>

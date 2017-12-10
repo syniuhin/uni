@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th ng-repeat="l in $ctrl.lessons()">{{ l }}</th>
+        </tr>
+      </thead>
+      <tr ng-repeat="p in $ctrl.pupils()">
+        <th scope="row">{{ $index + 1 }}</th>
+        <td>{{ p }}</td>
+        <td ng-repeat="l in $ctrl.lessons()">{{ $ctrl.getMark(p, l) }}</td>
+      </tr>
+    </table>
+
+  </div>
+</div>

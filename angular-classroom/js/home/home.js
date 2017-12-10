@@ -2,36 +2,28 @@ app.controller("HomeController", [
   "$scope",
   "$state",
   "StorageService",
-  function($scope, $state, StorageService) {
+  "DataService",
+  function($scope, $state, StorageService, DataService) {
     var me = this;
 
     me.getYears = function() {
-      return StorageService.load("defaults")
-        .years.concat(StorageService.loadOr("data_points_year", []))
-        .sort();
+      return DataService.getYears();
     };
 
     me.getSubjects = function() {
-      return StorageService.load("defaults")
-        .subjects.concat(StorageService.loadOr("data_points_subject", []))
-        .sort();
+      return DataService.getSubjects();
     };
 
     me.getLessons = function() {
-      return StorageService.load("defaults")
-        .lessons.concat(StorageService.loadOr("data_points_lesson", []))
-        .sort();
+      return DataService.getLessons();
     };
 
     me.createNewEntry = function(entry) {
-      StorageService.createOrUpdate("entries", [entry], existing => {
-        existing.push(entry);
-        return existing;
-      });
+      DataService.createNewEntry(entry);
     };
 
     me.listEntries = function() {
-      return StorageService.loadOr("entries", []);
+      return DataService.getEntries();
     };
 
     me.entryStructure = function() {
@@ -73,6 +65,14 @@ app.controller("HomeController", [
         return existing;
       });
       delete data_point[key];
+    };
+
+    me.goToJournal = function(entry) {
+      $state.transitionTo("journal", {
+        year: entry.year,
+        subject: entry.subject,
+        lesson: entry.lesson
+      });
     };
   }
 ]);
