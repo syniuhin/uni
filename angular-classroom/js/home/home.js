@@ -1,9 +1,8 @@
 app.controller("HomeController", [
   "$scope",
   "$state",
-  "LoginService",
   "StorageService",
-  function($scope, $state, LoginService, StorageService) {
+  function($scope, $state, StorageService) {
     var me = this;
 
     me.getYears = function() {
@@ -22,11 +21,6 @@ app.controller("HomeController", [
       return StorageService.load("defaults")
         .lessons.concat(StorageService.loadOr("data_points_lesson", []))
         .sort();
-    };
-
-    me.logout = function() {
-      LoginService.logout();
-      $state.transitionTo("login");
     };
 
     me.createNewEntry = function(entry) {

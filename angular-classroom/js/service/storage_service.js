@@ -6,12 +6,7 @@ app.factory("StorageService", [
 
     return {
       save: function(key, value) {
-        if (value !== null && typeof value === "object") {
-          $cookies.putObject(key, value);
-          this._putInObjectMap(key);
-        } else {
-          $cookies.put(key, value);
-        }
+        $cookies.putObject(key, value);
         if (cache.hasOwnProperty(key)) {
           delete cache[key];
         }
@@ -30,9 +25,7 @@ app.factory("StorageService", [
         if (cache.hasOwnProperty(key)) {
           return cache[key];
         }
-        var res = this._isInObjectMap(key)
-          ? $cookies.getObject(key)
-          : $cookies.get(key);
+        var res = $cookies.getObject(key);
         cache[key] = res;
         return res;
       },
@@ -44,25 +37,6 @@ app.factory("StorageService", [
 
       contains: function(key) {
         return this.load(key) !== undefined;
-      },
-
-      _putInObjectMap: function(key) {
-        // Check if this is the first entry.
-        if ($cookies.getObject("object_map") === undefined) {
-          $cookies.putObject("object_map", {});
-        }
-        var object_map = $cookies.getObject("object_map");
-        if (!$cookies.getObject("object_map").hasOwnProperty(key)) {
-          object_map[key] = true;
-          $cookies.putObject("object_map", object_map);
-        }
-      },
-
-      _isInObjectMap: function(key) {
-        return (
-          $cookies.getObject("object_map") !== undefined &&
-          $cookies.getObject("object_map").hasOwnProperty(key)
-        );
       }
     };
   }
