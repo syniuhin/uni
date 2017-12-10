@@ -39,7 +39,11 @@
           <a class="nav-link" ui-sref="home" ui-sref-active="active">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" ui-sref="journal" ui-sref-active="active">Journal</a>
+          <script>$(function () {
+              $('[data-toggle="tooltip"]').tooltip()
+            })</script>
+          <a class="nav-link" ui-sref="journal" ui-sref-active="active" disabled data-toggle="tooltip" data-placement="bottom" title="Click on schedule row to go to specific journal"
+            style="cursor: default;">Journal</a>
         </li>
       </ul>
       <button class="btn btn-outline-danger" ng-click="authc.logout()">Log out</button>
