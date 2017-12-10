@@ -18,6 +18,27 @@ app.controller("HomeController", [
       return DataService.getLessons();
     };
 
+    me.isEntryValid = function(entry) {
+      return (
+        entry !== undefined &&
+        entry.hasOwnProperty("year") &&
+        entry.hasOwnProperty("subject") &&
+        entry.hasOwnProperty("lesson") &&
+        !me
+          .listEntries()
+          .find(
+            e =>
+              e.year === entry.year &&
+              e.subject === entry.subject &&
+              e.lesson === entry.lesson
+          )
+      );
+    };
+
+    me.isEntryInvalid = function(entry) {
+      return !me.isEntryValid(entry);
+    };
+
     me.createNewEntry = function(entry) {
       DataService.createNewEntry(entry);
     };
@@ -38,7 +59,7 @@ app.controller("HomeController", [
       });
     };
 
-    me.validDataPoint = function(data_point) {
+    me.isDataPointValid = function(data_point) {
       if (data_point === undefined) {
         return false;
       }

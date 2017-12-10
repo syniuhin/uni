@@ -8,9 +8,18 @@ app.factory("DataService", [
           .get("data/classes.json", { cache: true })
           .then(function(classes_data) {
             StorageService.save("defaults", {
-              years: ["9A", "10B", "11A"],
-              subjects: ["Math", "History", "Physics"],
-              lessons: ["01/12, 4", "02/12, 1"],
+              years: ["9A", "9C", "10B", "11A"],
+              subjects: ["Math", "History", "Physics", "Humanities"],
+              lessons: [
+                "2017-12-01, 4",
+                "2017-12-02, 1",
+                "2017-12-02, 2",
+                "2017-12-02, 3",
+                "2017-12-02, 4",
+                "2017-12-05, 3",
+                "2017-12-06, 3",
+                "2017-12-07, 3"
+              ],
               classes: classes_data.data.classes
             });
             stateService.transitionTo("login");

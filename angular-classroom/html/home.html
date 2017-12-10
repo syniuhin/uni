@@ -1,8 +1,8 @@
 <div class="container" ng-controller="HomeController as homec">
   <div class="row homeFormRow">
     <!-- New Journal Entry -->
-    <div class="col-md-3 card">
-      <form class="newJournalEntryForm">
+    <div class="col-3 offset-2 card">
+      <form class="homePageForm">
         <h4>Add journal point</h4>
         <div class="form-group">
           <label>Year</label>
@@ -18,35 +18,46 @@
         </div>
         <div class="form-group">
           <label>Lesson</label>
-          <select class="form-control" ng-model="entry.lesson">
+          <select class="form-control" ng-model="entry.lesson" required>
             <option ng-repeat="lesson in homec.getLessons()">{{lesson}}</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-success float-right" ng-click="homec.createNewEntry(entry)">Create</button>
+        <button type="submit" class="btn btn-success float-right" ng-click="homec.createNewEntry(entry)" ng-disabled="homec.isEntryInvalid(entry)">Create</button>
       </form>
     </div>
     <!-- New data points -->
-    <div class="col-3 offset-1 card">
-      <h4 style="padding:10px 0px 0px 10px;">Add data point</h4>
-      <form class="newDataPoint">
-        <div class="input-group">
-          <input type="text" class="form-control" ng-model="data_point_year.year" placeholder="Year" required="">
-          <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_year)" ng-disabled="!homec.validDataPoint(data_point_year)">+</button>
-        </div>
-      </form>
-      <form class="newDataPoint">
-        <div class="input-group">
-          <input type="text" class="form-control" ng-model="data_point_subject.subject" placeholder="Subject" required="">
-          <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_subject)"
-            ng-disabled="!homec.validDataPoint(data_point_subject)">+</button>
-        </div>
-      </form>
-      <form class="newDataPoint">
-        <div class="input-group">
-          <input type="text" class="form-control" ng-model="data_point_lesson.lesson" placeholder="Lesson" required="">
-          <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_lesson)" ng-disabled="!homec.validDataPoint(data_point_lesson)">+</button>
-        </div>
-      </form>
+    <div class="col-3 offset-2 card">
+      <div class="container homePageForm">
+        <h4 style="padding:0px 0px 0px 0px;">Add data point</h4>
+        <form>
+          <div class="form-group">
+            <label>Year</label>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="data_point_year.year" placeholder="Year" required="">
+              <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_year)" ng-disabled="!homec.isDataPointValid(data_point_year)">+</button>
+            </div>
+          </div>
+        </form>
+        <form>
+          <div class="form-group">
+            <label>Subject</label>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="data_point_subject.subject" placeholder="Subject" required="">
+              <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_subject)"
+                ng-disabled="!homec.isDataPointValid(data_point_subject)">+</button>
+            </div>
+          </div>
+        </form>
+        <form>
+          <div class="form-group">
+            <label>Lesson</label>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="data_point_lesson.lesson" placeholder="Lesson" required="">
+              <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_lesson)" ng-disabled="!homec.isDataPointValid(data_point_lesson)">+</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <hr/>
