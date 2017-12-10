@@ -6,9 +6,10 @@
 
   <div class="container">
     <div class="row homeFormRow">
-      <div class="col-2.5 card">
+      <!-- New Journal Entry -->
+      <div class="col-md-3 card">
         <form class="newJournalEntryForm">
-          <h4>New journal entry</h4>
+          <h4>Add journal point</h4>
           <div class="form-group">
             <label>Year</label>
             <select class="form-control" ng-model="entry.year">
@@ -28,6 +29,29 @@
             </select>
           </div>
           <button type="submit" class="btn btn-success float-right" ng-click="homec.createNewEntry(entry)">Create</button>
+        </form>
+      </div>
+      <!-- New data points -->
+      <div class="col-3 offset-1 card">
+        <h4 style="padding:10px 0px 0px 10px;">Add data point</h4>
+        <form class="newDataPoint">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="data_point_year.year" placeholder="Year" required="">
+            <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_year)" ng-disabled="!homec.validDataPoint(data_point_year)">+</button>
+          </div>
+        </form>
+        <form class="newDataPoint">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="data_point_subject.subject" placeholder="Subject" required="">
+            <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_subject)"
+              ng-disabled="!homec.validDataPoint(data_point_subject)">+</button>
+          </div>
+        </form>
+        <form class="newDataPoint">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="data_point_lesson.lesson" placeholder="Lesson" required="">
+            <button type="submit" class="btn btn-sm btn-success float-right" ng-click="homec.createNewDataPoint(data_point_lesson)" ng-disabled="!homec.validDataPoint(data_point_lesson)">+</button>
+          </div>
         </form>
       </div>
     </div>

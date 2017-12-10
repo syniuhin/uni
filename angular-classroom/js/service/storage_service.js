@@ -1,6 +1,9 @@
 app.factory("StorageService", [
   "$cookies",
   function($cookies) {
+    // For ng directives to not become insane.
+    var cache = {};
+
     return {
       save: function(key, value) {
         if (value !== null && typeof value === "object") {
@@ -8,6 +11,9 @@ app.factory("StorageService", [
           this._putInObjectMap(key);
         } else {
           $cookies.put(key, value);
+        }
+        if (cache.hasOwnProperty(key)) {
+          delete cache[key];
         }
       },
 
@@ -21,10 +27,14 @@ app.factory("StorageService", [
       },
 
       load: function(key) {
-        if (this._isInObjectMap(key)) {
-          return $cookies.getObject(key);
+        if (cache.hasOwnProperty(key)) {
+          return cache[key];
         }
-        return $cookies.get(key);
+        var res = this._isInObjectMap(key)
+          ? $cookies.getObject(key)
+          : $cookies.get(key);
+        cache[key] = res;
+        return res;
       },
 
       loadOr: function(key, empty_value) {
