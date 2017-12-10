@@ -13,3 +13,7 @@
 .homeFormRow {
   margin-top: 10px;
 }
+
+.tableCell {
+  display: inline-flex;
+}

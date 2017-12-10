@@ -31,5 +31,33 @@ function JournalComponent(StorageService, DataService, data) {
     return DataService.getJournalLessons(me.data.year, me.data.subject);
   };
 
-  me.getMark = function(pupil, lesson) {};
+  me.getMark = function(pupil, lesson) {
+    var key = `journal.${me.data.year}.${me.data.subject}`;
+    var journal = StorageService.load(key);
+    return journal[`mark.${pupil}.${lesson}`];
+  };
+
+  me.markFormState = {};
+
+  me.isText = function(pupil, lesson) {
+    return !me.isForm(pupil, lesson);
+  };
+
+  me.isForm = function(pupil, lesson) {
+    return (
+      me.markFormState.pupil === pupil && me.markFormState.lesson === lesson
+    );
+  };
+
+  me.toggleMarkEdit = function(pupil, lesson) {
+    me.markFormState.pupil = pupil;
+    me.markFormState.lesson = lesson;
+  };
+
+  me.setMark = function(pupil, lesson, mark) {
+    var key = `journal.${me.data.year}.${me.data.subject}`;
+    var journal = StorageService.load(key);
+    journal[`mark.${pupil}.${lesson}`] = mark;
+    me.markFormState = {};
+  };
 }
