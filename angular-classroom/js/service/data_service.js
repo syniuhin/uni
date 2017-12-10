@@ -45,10 +45,24 @@ app.factory("DataService", [
       },
 
       getPupils: function(year) {
-        var cls = StorageService.load("defaults").classes.find(
-          c => c.year === year
-        );
-        return cls === undefined ? [] : cls.pupils.sort();
+        var pupils = StorageService.load(`pupils_of_${year}`);
+        if (pupils === undefined) {
+          var cls = StorageService.load("defaults").classes.find(
+            c => c.year === year
+          );
+          pupils = cls === undefined ? [] : cls.pupils;
+        }
+        return pupils === undefined ? [] : pupils.sort();
+      },
+
+      // Make a single string from an array to show in a form.
+      getPupilsPretty: function(year) {
+        return this.getPupils(year).join("\n");
+      },
+
+      updatePupilsIn: function(cls) {
+        var pupils = cls.pupilsPretty.split("\n");
+        StorageService.save(`pupils_of_${cls.year}`, pupils);
       },
 
       getEntries: function() {

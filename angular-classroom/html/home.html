@@ -1,7 +1,7 @@
 <div class="container" ng-controller="HomeController as homec">
   <div class="row homeFormRow">
     <!-- New Journal Entry -->
-    <div class="col-3 offset-2 card">
+    <div class="col-3 card">
       <form class="homePageForm">
         <h4>Add journal point</h4>
         <div class="form-group">
@@ -26,7 +26,7 @@
       </form>
     </div>
     <!-- New data points -->
-    <div class="col-3 offset-2 card">
+    <div class="col-3 offset-1 card">
       <div class="container homePageForm">
         <h4 style="padding:0px 0px 0px 0px;">Add data point</h4>
         <form>
@@ -58,6 +58,18 @@
           </div>
         </form>
       </div>
+    </div>
+    <div class="col-4 offset-1 card">
+      <form class="homePageForm">
+        <h4>Edit pupils list</h4>
+        <div class="form-group">
+          <select class="form-control" ng-model="homec.cls.year" ng-change="homec.fetchPupilsPretty(homec.cls.year)">
+            <option ng-repeat="year in homec.getYears()">{{year}}</option>
+          </select>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" ng-model="homec.cls.pupilsPretty"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary float-right" ng-click="homec.updateClassWithPupils()">Update</button>
+      </form>
     </div>
   </div>
   <hr/>

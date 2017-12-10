@@ -10,6 +10,10 @@ app.controller("HomeController", [
       return DataService.getYears();
     };
 
+    me.fetchPupilsPretty = function(year) {
+      me.cls.pupilsPretty = DataService.getPupilsPretty(year);
+    };
+
     me.getSubjects = function() {
       return DataService.getSubjects();
     };
@@ -86,6 +90,11 @@ app.controller("HomeController", [
         return existing;
       });
       delete data_point[key];
+    };
+
+    me.updateClassWithPupils = function() {
+      DataService.updatePupilsIn(me.cls);
+      me.cls = {};
     };
 
     me.goToJournal = function(entry) {
