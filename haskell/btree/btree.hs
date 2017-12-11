@@ -1,4 +1,9 @@
+module BinaryTree (BTree(Empty, Branch)) where
+
 import Prelude hiding ((<=), (^))
+import Data.Char
+import Data.Functor
+import Control.Applicative
 
 -- Derive Eq and Show typeclasses so we can compare and print BTree instances.
 data BTree a = Empty | Branch a (BTree a) (BTree a) deriving (Eq, Show)
